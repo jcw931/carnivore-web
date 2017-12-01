@@ -1,7 +1,25 @@
 <?php
 session_start();
-session_regenerate_id(true);
 	?>
+<?php
+
+	if ($_POST['location'] == "ms"){
+		$service_url = 'http://35.196.221.242:80/inventory/location/Starkville,%20MS';
+	}
+	if ($_POST['location'] == "ga"){
+		$service_url = 'http://35.196.221.242:80/inventory/location/Atlanta,%20GA';
+	}
+	if ($_POST['location'] == "al"){
+		$service_url = 'http://35.196.221.242:80/inventroy/location/Huntsville,%20AL';
+	}
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+	curl_setopt($ch, CURLOPT_URL, $service_url);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	$data = json_decode($data,true);
+?>
 <!doctype html>
 <html>
 <head>
@@ -120,9 +138,45 @@ session_regenerate_id(true);
 	</form>
     <div id="map"></div>	
     </div>
-	  
+	  <div>
+		  <p>
+	  <?php 
+			echo "<form action = \"cruises.php\" method = \"Post\">";
+			  for ($i=0; $i <= 4; $i++){
+		echo ("Name: " . $data['inventory'][$i]['name']);
+				  print("<br/>");
+		echo ("Departure Date: " . $data['inventory'][$i]['departureDate']);
+				   print("<br/>");
+		echo ("Return Date: " . $data['inventory'][$i]['returnDate']);
+				   print("<br/>");
+		echo ("Room Capacity: " . $data['inventory'][$i]['roomCapacity']);
+				   print("<br/>");
+		echo ("Price: " . $data['inventory'][$i]['cost']);
+		$cruiseId = $data['inventory'][$i]['itemID'];
+				   print("<br/>");
+		echo "Select " . "<input type = \"radio\" name = \"cruise\" value = \"$cruiseId\">";
+				  print("<br/>");
+				  print("<br/>");
+	 }
+			  ?></p>
+		  <input type = "submit" name = "purchase" value = "Purchase">
+		  </form>
+	  <?php
+	  if(isset($_POST['cruise'])){
+		  $item = $_POST['cruise'];
+		  $purchase_url = 'http://35.196.221.242:80/system/purchase/' . $item;
+		  $ch = curl_init($purchase_url);
+		  curl_setopt($ch, CURLOPT_PUT, true);
+		  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		  $response = curl_exec($ch);
+		  echo $response;
+	  }
+	  ?>
+	  </div>
     </div>
     </div>
+	
+
 	<?php
 
 define('DEBUG', false);
@@ -229,25 +283,5 @@ _END;
 
     </script>
 	
-<?php
-
-	if ($_POST['location'] == "ms"){
-		$service_url = 'http://35.196.221.242:80/inventory/location/Starkville,%MS';
-	}
-	if ($_POST['location'] == "ga"){
-		$service_url = 'http://35.196.221.242:80/inventory/location/Atlanta,%MS';
-	}
-	if ($_POST['location'] == "al"){
-		$service_url = 'http://35.196.221.242:80/inventroy/location/Huntsville,%AL';
-	}
-	echo $service_url;
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-	curl_setopt($ch, CURLOPT_URL, $service_url);
-	$data = curl_exec($ch);
-	curl_close($ch);
-	echo $data;
-?>
     </head>
     </html>

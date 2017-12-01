@@ -74,7 +74,7 @@
       <li><a href="carnivoreCruise.php">Home</a></li>
       <li><a href="cruises.php">Cruises</a></li>
       <li><a href="artist.php">Featured Artist</a></li>
-      <li><a href="about.asp">About</a></li>
+      <li><a href="history.php">History</a></li>
     </ul>
   </div>
   <div id="body">

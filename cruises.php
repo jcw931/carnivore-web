@@ -115,7 +115,7 @@ session_start();
       <li><a href="carnivoreCruise.php">Home</a></li>
       <li><a href="cruises.php">Cruises</a></li>
       <li><a href="artist.php">Featured Artist</a></li>
-      <li><a href="about.asp">About</a></li>
+      <li><a href="history.php">History</a></li>
     </ul>
   </div>
   <div id="body">
@@ -142,7 +142,7 @@ session_start();
 		  <p>
 	  <?php 
 			echo "<form action = \"cruises.php\" method = \"Post\">";
-			  for ($i=0; $i <= 4; $i++){
+			  for ($i=0; $i <= count($data['inventory'])-1; $i++){
 		echo ("Name: " . $data['inventory'][$i]['name']);
 				  print("<br/>");
 		echo ("Departure Date: " . $data['inventory'][$i]['departureDate']);

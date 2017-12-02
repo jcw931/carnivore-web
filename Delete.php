@@ -94,37 +94,27 @@ session_start();
       <li><a href="carnivoreCruise.php">Home</a></li>
       <li><a href="cruises.php">Cruises</a></li>
       <li><a href="artist.php">Featured Artist</a></li>
-		<li><a href="history.php">History</a></li>
+      <li><a href="history.php">History</a></li>
 		<li><a href= "admin.php">Admin</a></li>
 		<li><a href="Delete.php">Delete</a></li>
-
     </ul>
   </div>
-</head>
-	<?php
-	$service_url = 'http://35.196.221.242:80/system/history';
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-	curl_setopt($ch, CURLOPT_URL, $service_url);
-	$data = curl_exec($ch);
-	curl_close($ch);
-	$data = json_decode($data,true);
-	
-	?>
-	<p>
-	  <?php 
-			  for ($i=0; $i <= count($data['history']) -1; ++$i){
-				  $total = intval($data['history'][$i]['']);
-		echo ("Name: " . $data['history'][$i]['itemId']);
-				  print("<br/>");
-		echo ("Number sold: " . $data['history'][$i]['numberSold']);
-				  print("<br/>");
-				  print("<br/>");
-
-	 }
-			  ?></p>
-	<p>Total Revenue: <?php $total ?></p>
-<body>
+		<body>
+		<p>Delete Cruise:</p>
+		<form method = "post">
+			CruiseID: <input type="text" name="itemId" required><br>
+			<input type="submit" value="Delete">
+			</form>
+<?php
+		$itemId = $_POST['itemId'];
+			  if($_SERVER["REQUEST_METHOD"] == "POST"){
+		  $purchase_url = 'http://35.196.221.242:80/inventory/' . $itemId;
+		  $ch = curl_init($purchase_url);
+		  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+		  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		  $response = curl_exec($ch);
+		  echo $response;
+			  }
+			?>
 </body>
 </html>

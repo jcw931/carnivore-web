@@ -75,6 +75,8 @@
       <li><a href="cruises.php">Cruises</a></li>
       <li><a href="artist.php">Featured Artist</a></li>
       <li><a href="history.php">History</a></li>
+		<li><a href= "admin.php">Admin</a></li>
+
     </ul>
   </div>
   <div id="body">
@@ -82,6 +84,10 @@
 
 
 <form method="post">
+<audio controls autoplay style ="display:none">
+  <source src="Montana.mp3" type="audio/mpeg">
+  <p>If you can read this, your browser does not support the audio element.</p>
+</audio>
 
 <p>
 Popular Artists at our Venues!

@@ -116,6 +116,8 @@ session_start();
       <li><a href="cruises.php">Cruises</a></li>
       <li><a href="artist.php">Featured Artist</a></li>
       <li><a href="history.php">History</a></li>
+		<li><a href= "admin.php">Admin</a></li>
+
     </ul>
   </div>
   <div id="body">
@@ -131,8 +133,8 @@ session_start();
 	 <select name = "destination">
     	<option value = "">Select Destination</option>
     	<option value = "1">Honolulu, Hawaii</option>
-    	<option value = "2">Spain, Italy</option>
-		<option value = "3">Atlanta, GA</option>
+    	<option value = "2">Nassua, the Bahamas</option>
+		<option value = "3">Jackson, Mississippi</option>
   	</select>	
 	<input type ="submit" value = " Go "/>
 	</form>
@@ -150,6 +152,8 @@ session_start();
 		echo ("Return Date: " . $data['inventory'][$i]['returnDate']);
 				   print("<br/>");
 		echo ("Room Capacity: " . $data['inventory'][$i]['roomCapacity']);
+				   print("<br/>");
+		echo ("Availability: " . $data['inventory'][$i]['available']);
 				   print("<br/>");
 		echo ("Price: " . $data['inventory'][$i]['cost']);
 		$cruiseId = $data['inventory'][$i]['itemID'];

@@ -94,37 +94,54 @@ session_start();
       <li><a href="carnivoreCruise.php">Home</a></li>
       <li><a href="cruises.php">Cruises</a></li>
       <li><a href="artist.php">Featured Artist</a></li>
-		<li><a href="history.php">History</a></li>
+      <li><a href="history.php">History</a></li>
 		<li><a href= "admin.php">Admin</a></li>
 		<li><a href="Delete.php">Delete</a></li>
 
     </ul>
   </div>
 </head>
-	<?php
-	$service_url = 'http://35.196.221.242:80/system/history';
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_HEADER, 0);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-	curl_setopt($ch, CURLOPT_URL, $service_url);
-	$data = curl_exec($ch);
-	curl_close($ch);
-	$data = json_decode($data,true);
-	
-	?>
-	<p>
-	  <?php 
-			  for ($i=0; $i <= count($data['history']) -1; ++$i){
-				  $total = intval($data['history'][$i]['']);
-		echo ("Name: " . $data['history'][$i]['itemId']);
-				  print("<br/>");
-		echo ("Number sold: " . $data['history'][$i]['numberSold']);
-				  print("<br/>");
-				  print("<br/>");
 
-	 }
-			  ?></p>
-	<p>Total Revenue: <?php $total ?></p>
-<body>
+	<body>
+		<p>Create Cruise:</p>
+		<form method = "post">
+
+			CruiseID: <input type="text" name="itemId" required><br>
+			Cruise Name: <input type="text" name="cname" required><br>
+			Room Number: <input type="text" name="rnumber" required><br>
+			Availability: <input type="text" name="available" required><br>
+			Cost: <input type="text" name="cost" required><br>
+			Description: <textarea rows = "4" cols = "50" name="description" required></textarea><br>
+			Room Capacity: <input type="text" name="rcapacity" required><br>
+			From Location: <input type="text" name="flocation" required><br>
+			Departure Date: <input type="text" name="ddate" required><br>
+			Return Date: <input type="text" name="rdate" required><br>
+			Duration <input type="text" name="duration" required><br>
+			<br>
+			<input type="submit" value="Create">
+		</form>
+	<?php
+	  if($_SERVER["REQUEST_METHOD"] == "POST"){
+		  $itemId = $_POST['itemId'];
+		  $cname = $_POST['cname'];
+		  $rnumber = $_POST['rnumber'];
+		  $available = $_POST['available'];
+		  $cost = $_POST['cost'];
+		  $description = $_POST['description'];
+		  $rcapacity = $_POST['rcapacity'];
+		  $flocation = $_POST['flocation'];
+		  $ddate = $_POST['ddate'];
+		  $rdate = $_POST['rdate'];
+		  $duration = $_POST['duration'];
+
+
+		  $purchase_url = 'http://35.196.221.242:80/inventory/new/' . $itemId . '/' . $cname . '/' . $rnumber . '/' . $available . '/' . $cost . '/' . $cname . '/' . $description . '/' . $rcapacity . '/' . $flocation . '/' . $ddate . '/' . $rdate . '/' . $duration;
+		  $ch = curl_init($purchase_url);
+		  curl_setopt($ch, CURLOPT_POST, true);
+		  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		  $response = curl_exec($ch);
+		  echo $response;
+	  }
+	?>
 </body>
 </html>

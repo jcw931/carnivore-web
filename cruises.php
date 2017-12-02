@@ -1,7 +1,4 @@
 <?php
-session_start();
-	?>
-<?php
 
 	if ($_POST['location'] == "ms"){
 		$service_url = 'http://35.196.221.242:80/inventory/location/Starkville,%20MS';
@@ -117,6 +114,8 @@ session_start();
       <li><a href="artist.php">Featured Artist</a></li>
       <li><a href="history.php">History</a></li>
 		<li><a href= "admin.php">Admin</a></li>
+		<li><a href="Delete.php">Delete</a></li>
+
 
     </ul>
   </div>

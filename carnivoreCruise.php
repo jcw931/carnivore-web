@@ -76,6 +76,8 @@
       <li><a href="artist.php">Featured Artist</a></li>
       <li><a href="history.php">History</a></li>
 		<li><a href= "admin.php">Admin</a></li>
+		<li><a href="Delete.php">Delete</a></li>
+
 
     </ul>
   </div>

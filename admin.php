@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!doctype html>
 <html>
 <head>
@@ -123,13 +120,17 @@ session_start();
 	<?php
 	  if($_SERVER["REQUEST_METHOD"] == "POST"){
 		  $itemId = $_POST['itemId'];
+		  $itemId = preg_replace('/\s+/', '%20', $itemId);
 		  $cname = $_POST['cname'];
+		  $cname = preg_replace('/\s+/', '%20', $cname);
 		  $rnumber = $_POST['rnumber'];
 		  $available = $_POST['available'];
 		  $cost = $_POST['cost'];
 		  $description = $_POST['description'];
+		  $description = preg_replace('/\s+/', '%20', $description);
 		  $rcapacity = $_POST['rcapacity'];
 		  $flocation = $_POST['flocation'];
+		  $flocation = preg_replace('/\s+/', '%20', $flocation);
 		  $ddate = $_POST['ddate'];
 		  $rdate = $_POST['rdate'];
 		  $duration = $_POST['duration'];

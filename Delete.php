@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!doctype html>
 <html>
 <head>
@@ -107,6 +104,8 @@ session_start();
 			</form>
 <?php
 		$itemId = $_POST['itemId'];
+			$itemId = preg_replace('/\s+/', '%20', $itemId);
+			
 			  if($_SERVER["REQUEST_METHOD"] == "POST"){
 		  $purchase_url = 'http://35.196.221.242:80/inventory/' . $itemId;
 		  $ch = curl_init($purchase_url);

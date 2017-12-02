@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!doctype html>
 <html>
 <head>
@@ -115,16 +112,17 @@ session_start();
 	<p>
 	  <?php 
 			  for ($i=0; $i <= count($data['history']) -1; ++$i){
-				  $total = intval($data['history'][$i]['']);
 		echo ("Name: " . $data['history'][$i]['itemId']);
 				  print("<br/>");
 		echo ("Number sold: " . $data['history'][$i]['numberSold']);
 				  print("<br/>");
+		echo ("Revenue: " . $data['history'][$i]['revenue']);
+		$total += floatval($data['history'][$i]['revenue']);
 				  print("<br/>");
-
-	 }
+				  print("<br/>");
+			  }
+		echo"<p>Total Revenue: " . $total . "</p>";
 			  ?></p>
-	<p>Total Revenue: <?php $total ?></p>
 <body>
 </body>
 </html>
